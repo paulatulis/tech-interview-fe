@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
 
-import Landing from './components/Landing';
+import RoutesContainer from './containers/RoutesContainer';
+
 import Footer from './components/Footer';
 import Nav from './components/Nav';
+
+// import Login from './views/Login';
 
 
 import './App.css';
@@ -16,15 +18,20 @@ class App extends Component {
     .then(res => console.log(res))
   }
 
+  renderRoutesContainer = () => {
+    return <RoutesContainer />
+  }
+
 
 
   render () { 
     console.log(this.state)
     return (
       <div className="main-container">
-        hello
-        <Nav/>
-        <Landing />
+        <Nav />
+        <div>
+        {this.renderRoutesContainer()}
+        </div>
         <Footer />
       </div>
     );
