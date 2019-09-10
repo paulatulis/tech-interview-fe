@@ -4,6 +4,7 @@ import Landing from '../components/Landing';
 import Login from '../views/Login';
 import Profile from '../views/Profile';
 import Nav from '../components/Nav';
+import PersonalHome from '../views/PersonalHome';
 
 const baseURL = 'http://localhost:3000'
 class RoutesContainer extends Component {
@@ -37,7 +38,7 @@ class RoutesContainer extends Component {
             else {
                 this.setState({
                     user: res,
-                    redirect: <Redirect to='/profile' />
+                    redirect: <Redirect to='/home' />
                 })
                 localStorage.setItem('token', res.token)
             }
@@ -94,6 +95,7 @@ class RoutesContainer extends Component {
                 <Nav handleLogout={this.handleLogout}/>
                 <Switch>
                     <Route exact path='/' component={Landing} />
+                    <Route exact path='/home' component={PersonalHome}/>
                     <Route exact path='/login' render={()=> (<Login handleLogin={this.handleLogin}/>)} />
                     <Route exact path='/profile' render={()=> (<Profile user={this.state.user}/>)} />
                 </Switch>

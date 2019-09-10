@@ -1,9 +1,7 @@
 import React from 'react';
-import { Router, Route, Switch, Redirect, Link } from 'react-router-dom';
-import Login from '../views/Login';
-import SignUp from '../views/SignUp';
-import Quiz from '../views/Quiz';
-import Profile from '../views/Profile';
+import { Link } from 'react-router-dom';
+import './Nav.css'
+
 
 function Nav(props) {
     return(
@@ -14,12 +12,13 @@ function Nav(props) {
                         <div className="logged-in">
                             <Link to="/" onClick={props.handleLogout}>Logout</Link> |
                             <Link to="/profile" href="/profile"> My Profile</Link> |
-                            <Link to="/quiz" component={Quiz}> Take the Quiz</Link> |
+                            <Link to="/home" href="/home"> Home </Link> |
+                            <Link to="/quiz" href="/quiz"> Take the Quiz</Link> 
                         </div>
                     :
                         <div className="logged-out">
-                            <Link to='/login' component={Login}>Login</Link> |
-                            <Link to='/sign_up' component={SignUp}> Sign Up</Link>
+                            <Link to='/login' href="/login">Login</Link> |
+                            <Link to='/sign_up' href='/sign_up'> Sign Up</Link>
                         </div>   
 
                 }
