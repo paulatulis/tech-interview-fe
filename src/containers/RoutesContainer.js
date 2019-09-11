@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import Landing from '../components/Landing';
 import Login from '../views/Login';
 import Profile from '../views/Profile';
+import Quiz from '../views/Quiz';
 import Nav from '../components/Nav';
 import PersonalHome from '../views/PersonalHome';
 
@@ -12,11 +13,20 @@ class RoutesContainer extends Component {
         user: {},
         errors: '',
         redirect: null, 
+        quizSubjectName: null,
         quizzes: [],
         questions: [],
         answers: []
     }
-
+    
+    setQuizSubject = (e) => {
+        this.setState({
+            quizSubjectName: e.target.name,
+            redirect: <Redirect to="/quizzes" />
+        })
+        
+            
+    }
  
     handleLogin = (e) => {
         e.preventDefault()
@@ -95,9 +105,11 @@ class RoutesContainer extends Component {
                 <Nav handleLogout={this.handleLogout}/>
                 <Switch>
                     <Route exact path='/' component={Landing} />
-                    <Route exact path='/home' component={PersonalHome}/>
+                    <Route exact path='/home' render={()=> (<PersonalHome user={this.state.user} setQuizSubject={this.setQuizSubject}/>)}/>
                     <Route exact path='/login' render={()=> (<Login handleLogin={this.handleLogin}/>)} />
                     <Route exact path='/profile' render={()=> (<Profile user={this.state.user}/>)} />
+                    <Route exact path='/quizzes' render={()=> (<Quiz quiz={this.state.quizzes} questions={this.state.questions} subject={this.state.quizSubjectName}/>)} />
+
                 </Switch>
             </div>
         )
