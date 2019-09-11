@@ -2,7 +2,7 @@ import React from 'react';
 
 
 function QuestionCard(props){
-    console.log(props.question.question_body)
+    // console.log(props.question.question_body)
     
     return (
     <div className="card" key={props.id} onClick={(e) => props.handleAnswer(e, props)}>

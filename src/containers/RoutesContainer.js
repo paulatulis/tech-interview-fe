@@ -13,15 +13,16 @@ class RoutesContainer extends Component {
         user: {},
         errors: '',
         redirect: null, 
-        quizSubjectName: null,
+        quizSubjectId: null,
         quizzes: [],
         questions: [],
         answers: []
     }
     
     setQuizSubject = (e) => {
+        console.log(e.target.id)
         this.setState({
-            quizSubjectName: e.target.name,
+            quizSubjectId: e.target.id,
             redirect: <Redirect to="/quizzes" />
         })
         
@@ -98,17 +99,17 @@ class RoutesContainer extends Component {
     }
 
     render(){
-        console.log(this.state)
+        // console.log(this.state)
         return(
             <div>
                 {this.state.redirect}
                 <Nav handleLogout={this.handleLogout}/>
                 <Switch>
                     <Route exact path='/' component={Landing} />
-                    <Route exact path='/home' render={()=> (<PersonalHome user={this.state.user} setQuizSubject={this.setQuizSubject}/>)}/>
+                    <Route exact path='/home' render={()=> (<PersonalHome user={this.state.user} quizSubjects={this.state.quizzes}setQuizSubject={this.setQuizSubject}/>)}/>
                     <Route exact path='/login' render={()=> (<Login handleLogin={this.handleLogin}/>)} />
                     <Route exact path='/profile' render={()=> (<Profile user={this.state.user}/>)} />
-                    <Route exact path='/quizzes' render={()=> (<Quiz quiz={this.state.quizzes} questions={this.state.questions} subject={this.state.quizSubjectName}/>)} />
+                    <Route exact path='/quizzes' render={()=> (<Quiz quiz={this.state.quizzes} questions={this.state.questions} subject={this.state.quizSubjectId}/>)} />
 
                 </Switch>
             </div>

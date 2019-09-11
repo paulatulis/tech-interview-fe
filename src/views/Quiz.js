@@ -3,10 +3,10 @@ import QuestionCard from '../components/QuestionCard'
 
 class Quiz extends Component{
     render(){
-       
-        
-        const quizTitle = this.props.quiz.map(quiz => quiz.title).filter(title => title === 'React quiz 1')
-        const quizQuestionsArr = this.props.questions.filter(quiz => quiz.quiz_id === 5)
+        const subjectId = parseInt(this.props.subject)
+        const currentQuiz = this.props.quiz.filter(quiz => quiz.subject_id ===subjectId)
+        const quizTitle = currentQuiz[0].title
+        const quizQuestionsArr = this.props.questions.filter(quiz => quiz.quiz_id === currentQuiz[0].id)
         
         return(
             <div>
