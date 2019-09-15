@@ -8,7 +8,7 @@ class PersonalHome extends Component{
     }
     
     render(){
-        console.log(this.props.quizSubjects)
+        // console.log(this.props.quizSubjects)
 
         return(
             <div>
@@ -20,7 +20,7 @@ class PersonalHome extends Component{
                     <ul id='dropdown1' className='dropdown-content' onClick={(e) => this.props.setQuizSubject(e)}>
                     
                     {this.props.quizSubjects.map(quiz => 
-                    <li><a href="#!" id={quiz.subject_id}>{quiz.title}</a></li>
+                    <li><a href="#!" key={quiz.title} id={quiz.subject_id}>{quiz.title}</a></li>
                     )}
                     </ul>
 
