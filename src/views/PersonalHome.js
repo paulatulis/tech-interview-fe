@@ -8,8 +8,6 @@ class PersonalHome extends Component{
     }
     
     render(){
-        // console.log(this.props.quizSubjects)
-
         return(
             <div>
                 Welcome, {this.props.user.username}!
@@ -19,8 +17,8 @@ class PersonalHome extends Component{
                     
                     <ul id='dropdown1' className='dropdown-content' onClick={(e) => this.props.setQuizSubject(e)}>
                     
-                    {this.props.quizSubjects.map(quiz => 
-                    <li><a href="#!" key={quiz.title} id={quiz.subject_id}>{quiz.title}</a></li>
+                    {this.props.subjects.map(subject => 
+                    <li><a href="#!" key={subject.id} name={subject.name} id={subject.id} >{subject.name}</a></li>
                     )}
                     </ul>
 

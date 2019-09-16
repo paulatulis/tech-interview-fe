@@ -15,18 +15,34 @@ class RoutesContainer extends Component {
         redirect: null, 
         quizSubjectId: null,
         quizzes: [],
+        subjects: [],
         questions: [],
         answers: [], 
-        submitted: null
+        submitted: null,
+        currentQuiz: {}
     }
     
     setQuizSubject = (e) => {
-        this.setState({
-            quizSubjectId: e.target.id,
-            redirect: <Redirect to="/quizzes" />
+        let date = Date.now()
+        let title = e.target.name + ` quiz ${date}`
+        fetch(baseURL+`/quizzes`, {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json', Accept: 'application/json'},
+            body: JSON.stringify({
+                title: title,
+                description: this.state.user.username + `'s new quiz`, 
+                score: 0,
+                user_id: this.state.user.id,
+                subject_id: e.target.id
+            })
         })
-        
-            
+        .then(res => res.json())
+        .then(res => {
+            this.setState({
+                currentQuiz: res,
+                subject: res.subject,
+                redirect: <Redirect to='/quizzes' />})
+        })
     }
  
     handleLogin = (e) => {
@@ -48,7 +64,7 @@ class RoutesContainer extends Component {
             }
             else {
                 this.setState({
-                    user: res,
+                    user: res.user,
                     redirect: <Redirect to='/home' />
                 })
                 localStorage.setItem('token', res.token)
@@ -67,6 +83,7 @@ class RoutesContainer extends Component {
        this.fetchQuizzes()
        this.fetchQuestions()
        this.fetchAnswers()
+       this.fetchSubjects()
        if (localStorage.token) 
        this.confirmUser(localStorage.token)
     }
@@ -92,6 +109,12 @@ class RoutesContainer extends Component {
         .then(questions => this.setState({questions: questions}))
     }
 
+    fetchSubjects(){
+        fetch(baseURL+`/subjects`) 
+        .then(res => res.json())
+        .then(subjects => this.setState({subjects: subjects}))
+    }
+
     fetchAnswers(){
         fetch(baseURL+`/answers`) 
         .then(res => res.json())
@@ -100,17 +123,16 @@ class RoutesContainer extends Component {
 
 
     render(){
-        console.log('here is state in routes container: ', this.state)
         return(
             <div>
                 {this.state.redirect}
                 <Nav handleLogout={this.handleLogout}/>
                 <Switch>
                     <Route exact path='/' component={Landing} />
-                    <Route exact path='/home' render={()=> (<PersonalHome user={this.state.user} quizSubjects={this.state.quizzes}setQuizSubject={this.setQuizSubject}/>)}/>
+                    <Route exact path='/home' render={()=> (<PersonalHome user={this.state.user} subjects={this.state.subjects}setQuizSubject={this.setQuizSubject}/>)}/>
                     <Route exact path='/login' render={()=> (<Login handleLogin={this.handleLogin}/>)} />
                     <Route exact path='/profile' render={()=> (<Profile user={this.state.user}/>)} />
-                    <Route exact path='/quizzes' render={()=> (<Quiz quiz={this.state.quizzes} questions={this.state.questions} quizSubjectId={this.state.quizSubjectId} answers={this.state.answers} />)} />
+                    <Route exact path='/quizzes' render={()=> (<Quiz currentQuiz={this.state.currentQuiz} questions={this.state.questions} subject={this.state.subject} answers={this.state.answers} />)} />
 
                 </Switch>
             </div>
