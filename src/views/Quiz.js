@@ -24,6 +24,7 @@ class Quiz extends Component{
         return(
             <div>
                 {this.props.currentQuiz.title}
+                <button onClick={this.props.newQuizEvent()} name="nextQ" className="waves-effect waves-light btn-small">Start</button>
                 {/* {quizQuestionsArr.slice(num, (num+=1)).map(question => <QuestionCard key={question.id} question={question} answers={this.props.answers}/>)}
                 
                 {!this.state.submitted ? <button name="submit" className="waves-effect waves-light btn-small" onClick={this.submitAnswer}>Check Answer</button> : 

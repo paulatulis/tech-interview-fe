@@ -32,19 +32,40 @@ class RoutesContainer extends Component {
                 title: title,
                 description: this.state.user.username + `'s new quiz`, 
                 score: 0,
-                user_id: this.state.user.id,
                 subject_id: e.target.id
             })
         })
         .then(res => res.json())
         .then(res => {
+            console.log(res)
+            console.log(this.state.user.id)
             this.setState({
                 currentQuiz: res,
                 subject: res.subject,
-                redirect: <Redirect to='/quizzes' />})
+                redirect: <Redirect to='/quizzes' />
+            })
         })
     }
- 
+    newQuizEvent(e, props){
+        
+        console.log(e)
+        console.log(props)
+        // fetch(baseURL+`/quiz_events`,{
+        //     method: 'POST',
+        //     headers: { 'Content-type': 'application/json', Accept: 'application/json'},
+        //     body: JSON.stringify({
+        //             user_id: this.state.user.id,
+        //             quiz_id: this.state.currentQuiz.id,
+        //             name: 'test'
+        //     })
+        // })
+        // .then(res => res.json())
+        // .then(res => {
+        //     console.log(res)
+        // })
+
+    }
+
     handleLogin = (e) => {
         e.preventDefault()
         let form = e.target
@@ -132,7 +153,7 @@ class RoutesContainer extends Component {
                     <Route exact path='/home' render={()=> (<PersonalHome user={this.state.user} subjects={this.state.subjects}setQuizSubject={this.setQuizSubject}/>)}/>
                     <Route exact path='/login' render={()=> (<Login handleLogin={this.handleLogin}/>)} />
                     <Route exact path='/profile' render={()=> (<Profile user={this.state.user}/>)} />
-                    <Route exact path='/quizzes' render={()=> (<Quiz currentQuiz={this.state.currentQuiz} questions={this.state.questions} subject={this.state.subject} answers={this.state.answers} />)} />
+                    <Route exact path='/quizzes' render={()=> (<Quiz newQuizEvent={this.newQuizEvent} currentQuiz={this.state.currentQuiz} questions={this.state.questions} subject={this.state.subject} answers={this.state.answers} user={this.state.user}/>)} />
 
                 </Switch>
             </div>
