@@ -13,8 +13,8 @@ class Profile extends Component{
           <p>Here is where a bio could go if I want to add space for this later. For now, I will just hold the place. Maybe this is where we list previous quiz results</p>
         </div>
       </div>
-    )
-  }
-}
+    );
+  };
+};
 
-export default Profile
+export default Profile;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Landing from '../components/Landing';
 import Login from '../views/Login';
 import Profile from '../views/Profile';
@@ -157,8 +157,8 @@ class RoutesContainer extends Component {
 
                 </Switch>
             </div>
-        )
-    }
-}
+        );
+    };
+};
 
-export default RoutesContainer
+export default RoutesContainer;

@@ -6,8 +6,8 @@ class SignUp extends Component{
             <div>
                 SignUp Here
             </div>
-        )
-    }
-}
+        );
+    };
+};
 
-export default SignUp
+export default SignUp;

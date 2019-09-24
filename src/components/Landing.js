@@ -5,6 +5,6 @@ function Landing (props){
         <div>
             Sign up or sign in
         </div>
-    )
-}
-export default Landing
+    );
+};
+export default Landing;

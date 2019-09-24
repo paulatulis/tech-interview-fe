@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import QuestionCard from '../components/QuestionCard';
-import IncorrectAnswer from '../components/IncorrectAnswer'
+import IncorrectAnswer from '../components/IncorrectAnswer';
 
 
 
@@ -36,8 +36,7 @@ class Quiz extends Component{
         console.log(this.state.modal)
         const subjectId = parseInt(this.props.quizSubjectId)
         const quizQuestionsArr = this.props.questions.filter(question => parseInt(question.quiz.id) === this.props.currentQuiz.id)
-        
-        
+
         return(
             <div>
                 {this.props.currentQuiz.title}
@@ -51,15 +50,9 @@ class Quiz extends Component{
                     <button onClick={()=> this.setState({clicked: true})} name="nextQ" className="waves-effect waves-light btn-small">Start</button>
                 </div>
                 }
-                
-                
-                
-                
-                {/* {!this.state.submitted ? <button name="submit" className="waves-effect waves-light btn-small" onClick={this.submitAnswer}>Check Answer</button> : 
-                <button name="nextQ" className="waves-effect waves-light btn-small">Next Question</button>} */}
             </div>
-        )
-    }
-}
+        );
+    };
+};
 
 export default Quiz

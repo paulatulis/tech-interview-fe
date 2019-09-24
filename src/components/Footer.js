@@ -7,7 +7,7 @@ function Footer(props) {
             © Paula Tulis, 2019
         </div>
 
-    )
-}
+    );
+};
 
-export default Footer
+export default Footer;

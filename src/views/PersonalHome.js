@@ -25,8 +25,8 @@ class PersonalHome extends Component{
                 </div>
             </div>
 
-        )
-    }
-}
+        );
+    };
+};
 
-export default PersonalHome
+export default PersonalHome;

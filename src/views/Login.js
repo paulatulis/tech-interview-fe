@@ -17,9 +17,9 @@ class Login extends Component {
                     </form>
                 </div>
             </div>
-        )
-    }
+        );
+    };
 
-}
+};
 
-export default Login
+export default Login;
