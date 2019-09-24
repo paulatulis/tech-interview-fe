@@ -23,19 +23,11 @@ class RoutesContainer extends Component {
     }
     
     setQuizSubject = (e) => {
-        // console.log(this.state)
-        // console.log(e.target.id)
         let date = Date.now()
         let user_id = this.state.user.id 
         let quizSelected = this.state.quizzes.filter(quiz => parseInt(quiz.subject_id) === parseInt(e.target.id))
         let quiz_id = quizSelected[0].id
         let name = e.target.name + ` quiz ${date}`
-        console.log(date)
-        console.log(user_id)
-        console.log(quizSelected)
-        console.log(quiz_id)
-        console.log(name)
-
         fetch(baseURL+`/quiz_events`, {
             method: 'POST',
             headers: { 'Content-type': 'application/json', Accept: 'application/json'},
@@ -51,13 +43,27 @@ class RoutesContainer extends Component {
             this.setState({
                 quizSubjectId: res.quiz.subject_id,
                 currentQuiz: res.quiz,
+                currentQuizEvent: res.id,
                 redirect: <Redirect to='/quizzes' />
             })
         })
     }
-    newQuizEvent(e, props){
-        
 
+    submitAnswer = (score) => {
+        let id = this.state.currentQuizEvent
+        fetch(baseURL + `/quiz_events/${id}`,{
+            method: 'PATCH',
+            headers: { 'Content-type': 'application/json', Accept: 'application/json' }, 
+            body: JSON.stringify({
+                score: score
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            this.setState({
+                score: res.score
+            })
+        })
     }
 
     handleLogin = (e) => {
@@ -148,7 +154,7 @@ class RoutesContainer extends Component {
                     <Route exact path='/home' render={()=> (<PersonalHome user={this.state.user} subjects={this.state.subjects}setQuizSubject={this.setQuizSubject}/>)}/>
                     <Route exact path='/login' render={()=> (<Login handleLogin={this.handleLogin}/>)} />
                     <Route exact path='/profile' render={()=> (<Profile user={this.state.user}/>)} />
-                    <Route exact path='/quizzes' render={()=> (<Quiz newQuizEvent={this.newQuizEvent} currentQuiz={this.state.currentQuiz} questions={this.state.questions} subject={this.state.quizSubjectId} answers={this.state.answers} user={this.state.user}/>)} />
+                    <Route exact path='/quizzes' render={()=> (<Quiz newQuizEvent={this.newQuizEvent} currentQuiz={this.state.currentQuiz} questions={this.state.questions} subject={this.state.quizSubjectId} answers={this.state.answers} user={this.state.user} submitAnswer={this.submitAnswer}/>)} />
 
                 </Switch>
             </div>

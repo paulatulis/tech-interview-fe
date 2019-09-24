@@ -15,7 +15,7 @@ function QuestionCard(props){
                 {props.question.question_body}
               </div>
             </div>
-            {questionAnswers.map(answer => <AnswerCard key={answer.id} answer={answer}/>)}
+            {questionAnswers.map(answer => <AnswerCard key={answer.id} answer={answer} handleAnswer={props.handleAnswer}/>)}
         </div>
       );
   

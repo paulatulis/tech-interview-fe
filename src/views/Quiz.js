@@ -1,35 +1,60 @@
 import React, { Component } from 'react';
 import QuestionCard from '../components/QuestionCard';
+import M from "materialize-css";
+
 
 
 class Quiz extends Component{
-    state= {
+    state = {
         clicked: false,
-        submitted: false
+        score: 0,
+        num: 0, 
+        modal: false
     }
     componentDidMount(){
-       //make sure quiz subject is still there
+        M.AutoInit();
     }
 
-    submitAnswer(e){
+    handleAnswer = (e, props)=> {
         e.preventDefault()
-        console.log(e.target.name)
-        this.setState({submitted: true})
+        if(props.answer.correct){
+            this.setState({
+                score: this.state.score += 1
+            })
+        }
+        else { 
+            this.setState({
+                modal: true
+            })
+        }
+        this.props.submitAnswer(this.state.score)
     }
+
+
     render(){
-        console.log(this.props.questions.filter(question => parseInt(question.quiz.id) === this.props.currentQuiz.id))
-        console.log(this.props.questions.filter(question => parseInt(question.quiz_id) === parseInt(this.props.currentQuiz.id)))
 
         const subjectId = parseInt(this.props.quizSubjectId)
         const quizQuestionsArr = this.props.questions.filter(question => parseInt(question.quiz.id) === this.props.currentQuiz.id)
-        let num = 0
+        
         
         return(
             <div>
                 {this.props.currentQuiz.title}
                 {this.state.clicked ? 
                 <div>
-                    {quizQuestionsArr.slice(num, (num+=1)).map(question => <QuestionCard key={question.id} question={question} answers={this.props.answers}/>)}
+                    {quizQuestionsArr.slice(this.state.num, (this.state.num+=1)).map(question => <QuestionCard key={question.id} question={question} answers={this.props.answers} handleAnswer={this.handleAnswer}/>)}
+                    {this.state.modal? 
+                    <div id="modal1" class="modal modal-fixed-footer">
+                        <div class="modal-content">
+                            <h4>Modal Header</h4>
+                            <p>A bunch of text</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                        </div>
+                    </div>
+  :
+  <div>no modal</div>}
             </div>
                 
                 :
@@ -38,7 +63,7 @@ class Quiz extends Component{
                 </div>
                 }
                 
-
+                
                 
                 
                 {/* {!this.state.submitted ? <button name="submit" className="waves-effect waves-light btn-small" onClick={this.submitAnswer}>Check Answer</button> : 
