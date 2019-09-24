@@ -91,7 +91,6 @@ class RoutesContainer extends Component {
                 localStorage.setItem('token', res.token)
             }
         })
-        
     }
 
     handleLogout =() => {

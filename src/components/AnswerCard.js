@@ -3,10 +3,8 @@ import React from 'react';
 
 function AnswerCard(props){
     return (
-        <div className="card" key={props.id} onClick={(e) => props.handleAnswer(e, props)}>
-            <div className="">
-                <div className="">{props.answer.answer_body}</div>
-            </div>
+        <div>
+            <button className="btn-large waves-effect waves-light blue" key={props.id} onClick={(e) => props.handleAnswer(e, props)}>{props.answer.answer_body}</button>
         </div>
     );
 };
