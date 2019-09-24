@@ -23,46 +23,40 @@ class RoutesContainer extends Component {
     }
     
     setQuizSubject = (e) => {
+        // console.log(this.state)
+        // console.log(e.target.id)
         let date = Date.now()
-        let title = e.target.name + ` quiz ${date}`
-        fetch(baseURL+`/quizzes`, {
+        let user_id = this.state.user.id 
+        let quizSelected = this.state.quizzes.filter(quiz => parseInt(quiz.subject_id) === parseInt(e.target.id))
+        let quiz_id = quizSelected[0].id
+        let name = e.target.name + ` quiz ${date}`
+        console.log(date)
+        console.log(user_id)
+        console.log(quizSelected)
+        console.log(quiz_id)
+        console.log(name)
+
+        fetch(baseURL+`/quiz_events`, {
             method: 'POST',
             headers: { 'Content-type': 'application/json', Accept: 'application/json'},
             body: JSON.stringify({
-                title: title,
-                description: this.state.user.username + `'s new quiz`, 
-                score: 0,
-                subject_id: e.target.id
+                user_id: user_id,
+                quiz_id: quiz_id,
+                name: name,
+                score: 0
             })
         })
         .then(res => res.json())
         .then(res => {
-            console.log(res)
-            console.log(this.state.user.id)
             this.setState({
-                currentQuiz: res,
-                subject: res.subject,
+                quizSubjectId: res.quiz.subject_id,
+                currentQuiz: res.quiz,
                 redirect: <Redirect to='/quizzes' />
             })
         })
     }
     newQuizEvent(e, props){
         
-        console.log(e)
-        console.log(props)
-        // fetch(baseURL+`/quiz_events`,{
-        //     method: 'POST',
-        //     headers: { 'Content-type': 'application/json', Accept: 'application/json'},
-        //     body: JSON.stringify({
-        //             user_id: this.state.user.id,
-        //             quiz_id: this.state.currentQuiz.id,
-        //             name: 'test'
-        //     })
-        // })
-        // .then(res => res.json())
-        // .then(res => {
-        //     console.log(res)
-        // })
 
     }
 
@@ -144,6 +138,7 @@ class RoutesContainer extends Component {
 
 
     render(){
+        console.log(this.state)
         return(
             <div>
                 {this.state.redirect}
@@ -153,7 +148,7 @@ class RoutesContainer extends Component {
                     <Route exact path='/home' render={()=> (<PersonalHome user={this.state.user} subjects={this.state.subjects}setQuizSubject={this.setQuizSubject}/>)}/>
                     <Route exact path='/login' render={()=> (<Login handleLogin={this.handleLogin}/>)} />
                     <Route exact path='/profile' render={()=> (<Profile user={this.state.user}/>)} />
-                    <Route exact path='/quizzes' render={()=> (<Quiz newQuizEvent={this.newQuizEvent} currentQuiz={this.state.currentQuiz} questions={this.state.questions} subject={this.state.subject} answers={this.state.answers} user={this.state.user}/>)} />
+                    <Route exact path='/quizzes' render={()=> (<Quiz newQuizEvent={this.newQuizEvent} currentQuiz={this.state.currentQuiz} questions={this.state.questions} subject={this.state.quizSubjectId} answers={this.state.answers} user={this.state.user}/>)} />
 
                 </Switch>
             </div>
