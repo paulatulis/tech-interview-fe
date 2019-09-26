@@ -50,20 +50,38 @@ class RoutesContainer extends Component {
     }
 
     submitAnswer = (score) => {
-        let id = this.state.currentQuizEvent
-        fetch(baseURL + `/quiz_events/${id}`,{
-            method: 'PATCH',
+        //this needs to be post request to user_answer_choices_controller
+        let user_id = this.state.user.id
+        fetch(baseURL + `/user_answer_choices`,{
+            method: 'POST',
             headers: { 'Content-type': 'application/json', Accept: 'application/json' }, 
             body: JSON.stringify({
-                score: score
+                letter: 'a',
+                user_id: user_id
             })
         })
         .then(res => res.json())
         .then(res => {
-            this.setState({
-                score: res.score
-            })
+            console.log(res)
+            // this.setState({
+            //     score: res.score
+            // })
         })
+
+        // let id = this.state.currentQuizEvent
+        // fetch(baseURL + `/quiz_events/${id}`,{
+        //     method: 'PATCH',
+        //     headers: { 'Content-type': 'application/json', Accept: 'application/json' }, 
+        //     body: JSON.stringify({
+        //         score: score
+        //     })
+        // })
+        // .then(res => res.json())
+        // .then(res => {
+        //     this.setState({
+        //         score: res.score
+        //     })
+        // })
     }
 
     handleLogin = (e) => {
