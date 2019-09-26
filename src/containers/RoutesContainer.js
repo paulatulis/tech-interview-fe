@@ -153,7 +153,7 @@ class RoutesContainer extends Component {
                     <Route exact path='/home' render={()=> (<PersonalHome user={this.state.user} subjects={this.state.subjects}setQuizSubject={this.setQuizSubject}/>)}/>
                     <Route exact path='/login' render={()=> (<Login handleLogin={this.handleLogin}/>)} />
                     <Route exact path='/profile' render={()=> (<Profile user={this.state.user}/>)} />
-                    <Route exact path='/quizzes' render={()=> (<Quiz newQuizEvent={this.newQuizEvent} currentQuiz={this.state.currentQuiz} questions={this.state.questions} subject={this.state.quizSubjectId} answers={this.state.answers} user={this.state.user} submitAnswer={this.submitAnswer}/>)} />
+                    <Route exact path='/quizzes' render={()=> (<Quiz score={this.state.score} newQuizEvent={this.newQuizEvent} currentQuiz={this.state.currentQuiz} questions={this.state.questions} subject={this.state.quizSubjectId} answers={this.state.answers} user={this.state.user} submitAnswer={this.submitAnswer}/>)} />
 
                 </Switch>
             </div>

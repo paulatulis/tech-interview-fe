@@ -2,15 +2,15 @@ import React from 'react';
 
 
 
-function IncorrectAnswer(props){
+function CorrectAnswer (props){
     return (
       <div className="">
             <div className="card">
-              Incorrect
+              Great job! Correct.
             </div>
         </div>
       );
   
     };
   
-  export default IncorrectAnswer;
+  export default CorrectAnswer;

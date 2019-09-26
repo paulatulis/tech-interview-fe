@@ -12,8 +12,7 @@ function Nav(props) {
                         <div className="logged-in">
                             <Link to="/" onClick={props.handleLogout}>Logout</Link> |
                             <Link to="/profile" href="/profile"> My Profile</Link> |
-                            <Link to="/home" href="/home"> Home </Link> |
-                            <Link to="/quiz" href="/quiz"> Take the Quiz</Link> 
+                            <Link to="/home" href="/home"> Home </Link>
                         </div>
                     :
                         <div className="logged-out">
