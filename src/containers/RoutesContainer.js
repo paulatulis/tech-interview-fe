@@ -6,6 +6,7 @@ import Profile from '../views/Profile';
 import Quiz from '../views/Quiz';
 import Nav from '../components/Nav';
 import PersonalHome from '../views/PersonalHome';
+import SignUp from '../views/SignUp';
 
 const baseURL = 'http://localhost:3000'
 class RoutesContainer extends Component {
@@ -111,6 +112,36 @@ class RoutesContainer extends Component {
         })
     }
 
+    handleSignUp = (e) => {
+        e.preventDefault()
+        let form = e.target;
+        let userObj = {
+            username: form.username.value,
+            password: form.password.value
+        }
+        // let username = form.username.value;
+        // let password = form.password.value;
+
+        fetch(baseURL + '/signup', {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json', Accept: 'application/json'},
+            body: JSON.stringify({user: userObj})
+        })
+        .then(res => res.json())
+        .then(res => {
+            if(res.errors){
+                this.setState({errors: res.errors}, ()=> console.log("here are the errors", this.state.errors))
+            }
+            else {
+                this.setState({
+                    user: res.user,
+                    redirect: <Redirect to='/home' />
+                })
+                localStorage.setItem('token', res.token)
+            }
+        })
+    }
+
     handleLogout =() => {
         localStorage.removeItem('token')
         this.setState({redirect: <Redirect to='/' />})
@@ -163,11 +194,12 @@ class RoutesContainer extends Component {
     render(){
         console.log(this.state)
         return(
-            <div>
+            <div className="outer-body">
                 {this.state.redirect}
                 <Nav handleLogout={this.handleLogout}/>
                 <Switch>
                     <Route exact path='/' component={Landing} />
+                    <Route exact path='/sign_up' render={() => (<SignUp handleSignUp={this.handleSignUp}/>)} />
                     <Route exact path='/home' render={()=> (<PersonalHome user={this.state.user} subjects={this.state.subjects}setQuizSubject={this.setQuizSubject}/>)}/>
                     <Route exact path='/login' render={()=> (<Login handleLogin={this.handleLogin}/>)} />
                     <Route exact path='/profile' render={()=> (<Profile user={this.state.user}/>)} />
