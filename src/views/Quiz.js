@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import QuestionCard from '../components/QuestionCard';
+import './Quiz.css';
 
 
 
@@ -41,8 +42,7 @@ class Quiz extends Component{
     render(){
         const quizQuestionsArr = this.props.questions.filter(question => parseInt(question.quiz.id) === this.props.currentQuiz.id)
         return(
-            <div>
-                {this.props.currentQuiz.title}
+            <div className="body-body">
                 {/* {this.state.clicked ? 
                 <div>
                     {quizQuestionsArr.slice(this.state.num1, (this.state.num2)).map(question => <QuestionCard key={question.id} question={question} answers={this.props.answers} handleAnswer={this.handleAnswer}/>)}
@@ -53,8 +53,8 @@ class Quiz extends Component{
                 </div>
                 } */}
                 {this.state.num2 !== quizQuestionsArr.length? 
-                <div>
-                {quizQuestionsArr.slice(this.state.num1, (this.state.num2)).map(question => <QuestionCard key={question.id} question={question} answers={this.props.answers} handleNext={this.handleNext}/>)}
+                <div className="container">
+                {quizQuestionsArr.slice(this.state.num1, (this.state.num2)).map(question => <div className="row"> <QuestionCard key={question.id} question={question} answers={this.props.answers} handleNext={this.handleNext}/></div>)}
             </div>
                 :
                 <div>
