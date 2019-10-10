@@ -5,7 +5,6 @@ import './QuestionCard.css';
 
 
 function QuestionCard(props){
-    // console.log(props.quiz_question_id)
     const questionAnswers = props.answers.filter(answer => answer.quiz_question_id === props.question.id)
 
     return (
@@ -15,7 +14,7 @@ function QuestionCard(props){
                 {props.question.question_body}
               </div>
             </div>
-            {questionAnswers.map(answer => <AnswerCard key={answer.id} answer={answer} handleAnswer={props.handleAnswer}/>)}
+            {questionAnswers.map(answer => <AnswerCard key={answer.id} answer={answer} handleNext={props.handleNext}/>)}
         </div>
       );
   

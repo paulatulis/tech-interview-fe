@@ -51,7 +51,6 @@ class RoutesContainer extends Component {
     }
 
     submitAnswer = (score) => {
-        //this needs to be post request to user_answer_choices_controller
         let user_id = this.state.user.id
         fetch(baseURL + `/user_answer_choices`,{
             method: 'POST',
@@ -192,7 +191,7 @@ class RoutesContainer extends Component {
 
 
     render(){
-        console.log(this.state)
+        // console.log(this.state)
         return(
             <div className="outer-body">
                 {this.state.redirect}

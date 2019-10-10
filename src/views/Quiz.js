@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import QuestionCard from '../components/QuestionCard';
-import CorrectAnswer from '../components/CorrectAnswer';
 
 
 
@@ -15,9 +14,10 @@ class Quiz extends Component{
         modal: true
     }
 
-    handleAnswer = (e, props)=> {
+    handleNext = (e, correct)=> {
         e.preventDefault()
-        if(props.answer.correct){
+        console.log(correct)
+        if(correct){
             this.setState({
                 score: this.state.score += 1,
                 correct: this.state.correct += 1,
@@ -39,13 +39,7 @@ class Quiz extends Component{
 
 
     render(){
-        console.log(this.state.incorrect)
-        console.log(this.state.correct)
-
-        
         const quizQuestionsArr = this.props.questions.filter(question => parseInt(question.quiz.id) === this.props.currentQuiz.id)
-        // console.log(quizQuestionsArr.length)
-
         return(
             <div>
                 {this.props.currentQuiz.title}
@@ -60,7 +54,7 @@ class Quiz extends Component{
                 } */}
                 {this.state.num2 !== quizQuestionsArr.length? 
                 <div>
-                {quizQuestionsArr.slice(this.state.num1, (this.state.num2)).map(question => <QuestionCard key={question.id} question={question} answers={this.props.answers} handleAnswer={this.handleAnswer}/>)}
+                {quizQuestionsArr.slice(this.state.num1, (this.state.num2)).map(question => <QuestionCard key={question.id} question={question} answers={this.props.answers} handleNext={this.handleNext}/>)}
             </div>
                 :
                 <div>
