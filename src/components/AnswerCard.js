@@ -33,13 +33,21 @@ class AnswerCard extends Component {
 
       handleAnswer = (e, answer) => {
         e.preventDefault()
+        console.log(answer.answer.correct)
         if(answer.answer.correct) {
-          this.setState({correct: true})
+          this.setState({correct: true,
+                          toggle: true})
         }
         else {
-          this.setState({correct: false})
+          this.setState({correct: false,
+                        toggle: true})
         }
       }
+
+      // handleStay = (e, answer) => {
+      //   e.preventDefault()
+      //   this.setState({correct: null})
+      // }
 
 
     render(){
@@ -53,8 +61,8 @@ class AnswerCard extends Component {
                   
                   <div ref={Modal => {this.Modal = Modal;}} id="modal1" className="modal">
                     <div className="modal-content">
-                      <h4>Great job!</h4>
-                      <p>yay</p> 
+                      <h4>That's correct!</h4>
+                      <p>Great job</p> 
                       <div className="modal-footer">
                         <button onClick={(e) => this.props.handleNext(e, this.state.correct)}className="modal-close waves-effect waves-green btn-flat">Next Question</button>
                       </div>
@@ -73,7 +81,7 @@ class AnswerCard extends Component {
                       <h4>Oops, that's incorrect</h4>
                       <p>Give it another shot!</p> 
                       <div className="modal-footer">
-                        <button className="modal-close waves-effect waves-green btn-flat">Close</button>
+                        <button className="modal-close waves-effect waves-green btn-flat" onClick={(e) => this.handleAnswer(e, this.props)}>Close</button>
                       </div>
                     </div>
                   </div>
